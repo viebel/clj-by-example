@@ -1,6 +1,6 @@
 
 (ns clj-by.example
-  (:import (clojure.lang Var Symbol)))
+  #_(:import (clojure.lang Var Symbol)))
 
 
 ;;{
@@ -46,11 +46,11 @@
   if a variable `+examples-enabled+` is set and bound to a truthy value."
   [expr sep val & {:keys [equiv?]
                    :or { equiv? =}}]
-  (when (not= (name sep) "=>")
+  #_(when (not= (name sep) "=>")
     (throw (ex-info "Missing '=>' in example" {:expr `(quote ~expr)
                                                :sep `(quote ~sep)
                                                :val `(quote ~val)})))
-  (when-let [ex-var (find-var (symbol (str *ns*) "+examples-enabled+"))]
+  #_(when-let [ex-var (find-var (symbol (str *ns*) "+examples-enabled+"))]
     (when (var-get ex-var)
       `(let [expr# ~expr
              val# ~val]
@@ -69,7 +69,7 @@ variable `+examples-enabled+` is bound in the current namespace.
 This is used to prepare examples with some variable or function
   definitions."
   [& body]
-  (when-let [ex-var (find-var (symbol (str *ns*) "+examples-enabled+"))]
+  #_(when-let [ex-var (find-var (symbol (str *ns*) "+examples-enabled+"))]
     (when (var-get ex-var)
       `(do ~@body))))
 
